@@ -10,13 +10,7 @@ export default class Mechanism {
             0, 10, 20
         ]
         this.carDoorActuator = new Actuator()
-        $(this.carDoorActuator).on('position', function(event, position) {
-            $('#car .door').css('right', position)
-        })
         this.floor3DoorActuator = new Actuator()
-        $(this.floor3DoorActuator).on('position', function(event, position) {
-            $('#door-3').css('right', position)
-        })
     }
     checkFloorTrigger() {
         let self = this

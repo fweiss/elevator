@@ -27,5 +27,11 @@ $(function() {
     $('#get-3').click(function(event) {
         mechanism.openFloor3Door()
     })
+    $(mechanism.carDoorActuator).on('position', function(event, position) {
+        $('#car .door').css('right', position)
+    })
+    $(mechanism.floor3DoorActuator).on('position', function(event, position) {
+        $('#door-3').css('right', position)
+    })
 
 })
