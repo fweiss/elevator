@@ -19,7 +19,9 @@ $(function() {
     })
     $(mechanism.carActuator).on('detector', function(event, position) {
         console.log('car detector: ', position)
-        elevator.event(Elevator.AT_3)
+        if (position == 200) {
+            elevator.event(Elevator.AT_3)
+        }
     })
 
     $('#go-3').click(function(event) {
