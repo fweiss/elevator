@@ -1,0 +1,45 @@
+#elevator {
+    position: relative;
+    width: 13em;
+    height: 25em;
+    background-color: gray;
+    padding: 1em;
+}
+#floors .buttons {
+    float: left;
+    padding-top: 2em;
+}
+#car {
+    position: absolute;
+    top: 1em;
+    left: 7em;
+    width: 6.5em;
+    border: 3px solid black;
+}
+#car .buttons {
+    float: right;
+    padding-top: 0.5em;
+}
+#car .buttons button {
+    display: block;
+}
+#car > * {
+    display: inline-block;
+}
+.door-frame {
+    position: relative;
+    width: 3em;
+    height: 6em;
+    margin: 0.5em;
+    border: 2px solid black;
+    overflow: hidden;
+}
+.door-frame .door {
+    position: absolute;
+    width: 3em;
+    height: 6em;
+    background-color: blue;
+}
+.buttons {
+    margin: 0.25em;
+}
