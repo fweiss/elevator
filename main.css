@@ -1,7 +1,7 @@
 #elevator {
     position: relative;
     width: 13em;
-    height: 25em;
+    height: 21em;
     background-color: gray;
     padding: 1em;
 }
@@ -11,7 +11,7 @@
 }
 #car {
     position: absolute;
-    top: 1em;
+    bottom: 0;
     left: 7em;
     width: 6.5em;
     border: 3px solid black;

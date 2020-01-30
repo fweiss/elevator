@@ -12,11 +12,20 @@ $(function() {
         console.log('floor: ' + num)
     })
 
+    $(mechanism.carActuator).on('position', function(event, position) {
+        $('#car').css('bottom', position)
+    })
+    $(mechanism.carActuator).on('detector', function(event, position) {
+        console.log('car detector: ', position)
+    })
+
     $('#go-3').click(function(event) {
-        mechanism.startUp()
+        // mechanism.startUp()
+        mechanism.carActuator.out()
     })
     $('#go-2').click(function(event) {
-        mechanism.startDown()
+        // mechanism.startDown()
+        mechanism.carActuator.in()
     })
     $('#open').click(function(event) {
         mechanism.openCarDoor()
