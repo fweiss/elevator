@@ -1,9 +1,11 @@
 import Actuator from './actuator.js'
 import Mechanism from './mechanism.js'
+import Elevator from './elevator.js'
 
 $(function() {
 
     let mechanism = new Mechanism()
+    let elevator = new Elevator(mechanism)
 
     $(mechanism).on('moveto', function() {
         console.log(mechanism.position)
@@ -17,11 +19,13 @@ $(function() {
     })
     $(mechanism.carActuator).on('detector', function(event, position) {
         console.log('car detector: ', position)
+        elevator.event(Elevator.AT_3)
     })
 
     $('#go-3').click(function(event) {
         // mechanism.startUp()
-        mechanism.carActuator.out()
+        // mechanism.carActuator.out()
+        elevator.event(Elevator.GO_3)
     })
     $('#go-2').click(function(event) {
         // mechanism.startDown()

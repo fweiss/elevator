@@ -6,9 +6,12 @@ export default class Mechanism {
         this.carDoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])
         this.floor3DoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])
     }
+    carUp() {
+        this.carActuator.out()
+    }
     stop() {
         this.carActuator.stop()
-        $(this).trigger('stop')
+        // $(this).trigger('stop')
     }
     openCarDoor() {
         this.carDoorActuator.out()
