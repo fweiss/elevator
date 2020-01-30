@@ -1,10 +1,10 @@
 export default class Actuator {
-    constructor() { // in, out, ticks, steps
-        this.limitOut = 50
-        this.limitIn = 0
+    constructor(limitIn, limitOut, tickInterval, detectors) {
+        this.limitIn = limitIn
+        this.limitOut = limitOut
         this.position = 0
-        this.tickInterval = 20
-        this.detectors = [ 0, 50 ]
+        this.tickInterval = tickInterval
+        this.detectors = detectors
     }
     triggerPosition() {
         $(this).trigger('position', [ this.position ])

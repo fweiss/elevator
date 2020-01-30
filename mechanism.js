@@ -9,8 +9,9 @@ export default class Mechanism {
         this.floorTriggers = [
             0, 10, 20
         ]
-        this.carDoorActuator = new Actuator()
-        this.floor3DoorActuator = new Actuator()
+        this.carActuator = new Actuator(0, 100, 20, [ 0, 10, 20 ])
+        this.carDoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])
+        this.floor3DoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])
     }
     checkFloorTrigger() {
         let self = this
