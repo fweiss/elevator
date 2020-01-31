@@ -28,11 +28,23 @@ const EVENT_OPENED_1 = 'opened_1'
 
 export default class Elevator {
     static GO_3 = EVENT_GO_3
+    static GO_2 = EVENT_GO_2
+    static GO_1 = EVENT_GO_1
     static AT_3 = EVENT_AT_3
+    static AT_2 = EVENT_AT_2
+    static AT_1 = EVENT_AT_1
+    static OPENED_3 = EVENT_OPENED_3
 
     constructor(mechanism) {
         this.mechanism = mechanism
-        this.state = states[STATE_CLOSE_1]
+        this.state = STATE_CLOSE_1
+    }
+    set state(state) {
+        console.log('enter state: ' + state)
+        this._state = state
+    }
+    get state() {
+        return this._state
     }
 
     xevent(event) {
@@ -47,8 +59,9 @@ export default class Elevator {
     }
 
     event(event) {
-        let dispatch = this.state[event] || function() {
-            console.log('not handler: event: ' + event + ' for state: '+  this.state)
+        let self = this
+        let dispatch = states[this.state][event] || function() {
+            console.log('no handler: event: ' + event + ' for state: '+  self.state)
         }
         dispatch(this, this.mechanism)
     }
@@ -58,7 +71,7 @@ let states = {}
 states[STATE_CLOSE_1] = {}
 states[STATE_CLOSE_1][EVENT_GO_3] = function(elevator, mechanism) {
             mechanism.carUp()
-            elevator.state = states[STATE_CLOSE_3]
+            elevator.state = STATE_CLOSE_3
         }
 
 states[STATE_CLOSE_3] = {}
@@ -67,4 +80,11 @@ states[STATE_CLOSE_3][EVENT_AT_3] = function(elevator, mechanism) {
         mechanism.openCarDoor()
         mechanism.openFloor3Door()
     }
-
+states[STATE_CLOSE_3][EVENT_OPENED_3] = function(elevator, mechanism) {
+    elevator.state = STATE_OPEN_3
+}
+states[STATE_OPEN_3] = {}
+states[STATE_OPEN_3][EVENT_GO_1] = function(elevator, mechanism) {
+    mechanism.carDown()
+    elevator.state = STATE_CLOSE_1
+}

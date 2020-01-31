@@ -9,6 +9,9 @@ export default class Mechanism {
     carUp() {
         this.carActuator.out()
     }
+    carDown() {
+        this.carActuator.in()
+    }
     stop() {
         this.carActuator.stop()
         // $(this).trigger('stop')

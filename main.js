@@ -29,6 +29,9 @@ $(function() {
         // mechanism.carActuator.out()
         elevator.event(Elevator.GO_3)
     })
+    $('#go-1').click(function(event) {
+        elevator.event(Elevator.GO_1)
+    })
     $('#go-2').click(function(event) {
         // mechanism.startDown()
         mechanism.carActuator.in()
@@ -51,6 +54,11 @@ $(function() {
 
     $(mechanism.floor3DoorActuator).on('position', function(event, position) {
         $('#door-3').css('right', position)
+    })
+    $(mechanism.floor3DoorActuator).on('detector', function(event, position) {
+        if (position == 50) {
+            elevator.event(Elevator.OPENED_3)
+        }
     })
 
 
