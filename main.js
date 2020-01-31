@@ -22,6 +22,9 @@ $(function() {
         if (position == 200) {
             elevator.event(Elevator.AT_3)
         }
+        if (position == 0) {
+            elevator.event(Elevator.AT_1)
+        }
     })
 
     $('#go-3').click(function(event) {
@@ -58,6 +61,20 @@ $(function() {
     $(mechanism.floor3DoorActuator).on('detector', function(event, position) {
         if (position == 50) {
             elevator.event(Elevator.OPENED_3)
+        }
+        if (position == 0) {
+            elevator.event(Elevator.CLOSED_3)
+        }
+    })
+    $(mechanism.floor1DoorActuator).on('position', function(event, position) {
+        $('#door-1').css('right', position)
+    })
+    $(mechanism.floor1DoorActuator).on('detector', function(event, position) {
+        if (position == 50) {
+            elevator.event(Elevator.OPENED_1)
+        }
+        if (position == 0) {
+            elevator.event(Elevator.CLOSED_1)
         }
     })
 
