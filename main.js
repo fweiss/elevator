@@ -7,13 +7,6 @@ $(function() {
     let mechanism = new Mechanism()
     let elevator = new Elevator(mechanism)
 
-    $(mechanism).on('moveto', function() {
-        console.log(mechanism.position)
-    })
-    $(mechanism).on('floor', function(event, num) {
-        console.log('floor: ' + num)
-    })
-
     $(mechanism.carActuator).on('position', function(event, position) {
         $('#car').css('bottom', position)
     })
@@ -27,18 +20,16 @@ $(function() {
         }
     })
 
-    $('#go-3').click(function(event) {
-        // mechanism.startUp()
-        // mechanism.carActuator.out()
-        elevator.event(Elevator.GO_3)
-    })
     $('#go-1').click(function(event) {
         elevator.event(Elevator.GO_1)
     })
     $('#go-2').click(function(event) {
-        // mechanism.startDown()
         mechanism.carActuator.in()
     })
+    $('#go-3').click(function(event) {
+        elevator.event(Elevator.GO_3)
+    })
+
     $('#open').click(function(event) {
         mechanism.openCarDoor()
     })

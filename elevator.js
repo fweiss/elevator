@@ -54,18 +54,6 @@ export default class Elevator {
     get state() {
         return this._state
     }
-
-    xevent(event) {
-        if (event == Elevator.GO_3) {
-            this.mechanism.carUp()
-        }
-        if (event == Elevator.AT_3) {
-            this.mechanism.stop()
-            this.mechanism.openCarDoor()
-            this.mechanism.openFloor3Door()
-        }
-    }
-
     event(event) {
         let self = this
         let dispatch = states[this.state][event] || function() {
@@ -86,6 +74,20 @@ states[STATE_CLOSE_1][EVENT_AT_1] = function(elevator, mechanism) {
     mechanism.openCarDoor()
     mechanism.openFloor1Door()
 }
+states[STATE_CLOSE_1][EVENT_OPENED_1] = function(elevator, mechanism) {
+    elevator.state = STATE_OPEN_1
+}
+states[STATE_OPEN_1] = {}
+states[STATE_OPEN_1][EVENT_GO_3] = function(elevator, mechanism) {
+    mechanism.closeFloor1Door()
+    mechanism.closeCarDoor()
+    elevator.state = STATE_SEEK_3
+}
+states[STATE_SEEK_1] = {}
+states[STATE_SEEK_1][EVENT_CLOSED_3] = function(elevator, mechanism) {
+    mechanism.carDown()
+    elevator.state = STATE_CLOSE_1
+}
 
 states[STATE_CLOSE_3] = {}
 states[STATE_CLOSE_3][EVENT_AT_3] = function(elevator, mechanism) {
@@ -102,8 +104,8 @@ states[STATE_OPEN_3][EVENT_GO_1] = function(elevator, mechanism) {
     mechanism.closeCarDoor()
     elevator.state = STATE_SEEK_1
 }
-states[STATE_SEEK_1] = {}
-states[STATE_SEEK_1][EVENT_CLOSED_3] = function(elevator, mechanism) {
-    mechanism.carDown()
-    elevator.state = STATE_CLOSE_1
+states[STATE_SEEK_3] = {}
+states[STATE_SEEK_3][EVENT_CLOSED_1] = function(elevator, mechanism) {
+    mechanism.carUp()
+    elevator.state = STATE_CLOSE_3
 }
