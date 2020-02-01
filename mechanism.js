@@ -2,7 +2,7 @@ import Actuator from "./actuator.js";
 
 export default class Mechanism {
     constructor() {
-        this.carActuator = new Actuator(0, 200, 20, [ 0, 100, 200 ])
+        this.carActuator = new Actuator(0, 240, 20, [ 0, 120, 240 ])
         this.carDoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])
         this.floor1DoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])
         this.floor2DoorActuator = new Actuator(0, 50, 20, [ 0, 50 ])

@@ -5,13 +5,29 @@
     background-color: gray;
     padding: 1em;
 }
+#floors .floor {
+    height: 100px;
+    width: 200px;
+}
+#floor-1 {
+    position: absolute;
+    bottom : 20px;
+}
+#floor-2 {
+    position: absolute;
+    bottom: 140px
+}
+#floor-3 {
+    position: absolute;
+    bottom: 260px
+}
 #floors .buttons {
     float: left;
     padding-top: 2em;
 }
 #car {
     position: absolute;
-    bottom: 0;
+    bottom: 11px;
     left: 7em;
     width: 6.5em;
     border: 3px solid black;
@@ -29,16 +45,22 @@
 }
 .door-frame {
     position: relative;
-    width: 3em;
-    height: 6em;
+    width: 50px;
+    height: 80px;
     margin: 0.5em;
     border: 2px solid black;
     overflow: hidden;
 }
+.door-frame span {
+    position: absolute;
+    color: white;
+    font-size: 200%;
+    z-index: 40;
+}
 .door-frame .door {
     position: absolute;
-    width: 3em;
-    height: 6em;
+    width: 50px;
+    height: 80px;
     background-color: blue;
 }
 .buttons {

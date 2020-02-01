@@ -8,15 +8,15 @@ $(function() {
     let elevator = new Elevator(mechanism)
 
     $(mechanism.carActuator).on('position', function(event, position) {
-        let offset = position + 25
+        let offset = position + 11
         $('#car').css('bottom', offset)
     })
     $(mechanism.carActuator).on('detector', function(event, position) {
         console.log('car detector: ', position)
-        if (position == 200) {
+        if (position == 240) {
             elevator.event(Elevator.AT_3)
         }
-        if (position == 100) {
+        if (position == 120) {
             elevator.event(Elevator.AT_2)
         }
         if (position == 0) {
