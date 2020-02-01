@@ -63,6 +63,11 @@ let states = new Builder()
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.state = STATE_OPEN_1
     })
+.for(STATE_SEEK_1)
+    .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
+        mechanism.carDown()
+        elevator.state = STATE_CLOSE_1
+    })
 .for(STATE_CLOSE_1)
     .on(EVENT_GO_3, (elevator, mechanism) => {
         mechanism.carUp()
@@ -71,7 +76,6 @@ let states = new Builder()
     .on(EVENT_AT_1, (elevator, mechanism) => {
         mechanism.stop()
         mechanism.openCarDoor()
-        // mechanism.openFloor1Door()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.state = STATE_OPEN_1
@@ -89,19 +93,17 @@ let states = new Builder()
         mechanism.openFloor1Door()
         elevator.state = STATE_FLOOR_1
     })
-.for(STATE_SEEK_1)
-    .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
-        mechanism.carDown()
-        elevator.state = STATE_CLOSE_1
+.for(STATE_FLOOR_1)
+    .on(EVENT_CLOSED_1, (elevator, mechanism) => {
+        elevator.state = STATE_OPEN_1
     })
+
+
+
 .for(STATE_SEEK_3)
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
         mechanism.carUp()
         elevator.state = STATE_CLOSE_3
-    })
-.for(STATE_FLOOR_1)
-    .on(EVENT_CLOSED_1, (elevator, mechanism) => {
-        elevator.state = STATE_OPEN_1
     })
 .for(STATE_CLOSE_3)
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
@@ -110,11 +112,9 @@ let states = new Builder()
     .on(EVENT_AT_3, (elevator, mechanism) => {
         mechanism.stop()
         mechanism.openCarDoor()
-        // mechanism.openFloor3Door()
     })
 .for(STATE_OPEN_3)
     .on(EVENT_GO_1, (elevator, mechanism) => {
-        mechanism.closeFloor3Door()
         mechanism.closeCarDoor()
         elevator.state = STATE_SEEK_1
     })
@@ -127,7 +127,7 @@ let states = new Builder()
         elevator.state = STATE_OPEN_3
     })
 
-    .build()
+.build()
 
 console.log(states)
 
