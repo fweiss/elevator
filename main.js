@@ -31,17 +31,6 @@ $(function() {
         elevator.event(position == 50 ? Elevator.OPENED_CAR : Elevator.CLOSED_CAR)
     })
 
-    $(mechanism.floor3DoorActuator).on('position', function(event, position) {
-        $('#door-3').css('right', position)
-    })
-    $(mechanism.floor3DoorActuator).on('detector', function(event, position) {
-        if (position == 50) {
-            elevator.event(Elevator.OPENED_3)
-        }
-        if (position == 0) {
-            elevator.event(Elevator.CLOSED_3)
-        }
-    })
     $(mechanism.floor1DoorActuator).on('position', function(event, position) {
         $('#door-1').css('right', position)
     })
@@ -51,6 +40,28 @@ $(function() {
         }
         if (position == 0) {
             elevator.event(Elevator.CLOSED_1)
+        }
+    })
+    $(mechanism.floor2DoorActuator).on('position', function(event, position) {
+        $('#door-2').css('right', position)
+    })
+    $(mechanism.floor2DoorActuator).on('detector', function(event, position) {
+        if (position == 50) {
+            elevator.event(Elevator.OPENED_2)
+        }
+        if (position == 0) {
+            elevator.event(Elevator.CLOSED_2)
+        }
+    })
+    $(mechanism.floor3DoorActuator).on('position', function(event, position) {
+        $('#door-3').css('right', position)
+    })
+    $(mechanism.floor3DoorActuator).on('detector', function(event, position) {
+        if (position == 50) {
+            elevator.event(Elevator.OPENED_3)
+        }
+        if (position == 0) {
+            elevator.event(Elevator.CLOSED_3)
         }
     })
 
@@ -68,7 +79,7 @@ $(function() {
         elevator.event(Elevator.GO_1)
     })
     $('#go-2').click(function(event) {
-        mechanism.carActuator.in()
+        elevator.event(Elevator.GO_2)
     })
     $('#go-3').click(function(event) {
         elevator.event(Elevator.GO_3)

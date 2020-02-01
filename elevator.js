@@ -92,6 +92,11 @@ let states = new Builder()
     .on(EVENT_OPENED_1, (elevator, mechanism) => {
         elevator.state = STATE_FLOOR_1
     })
+    .on(EVENT_GO_2, (elevator, mechanism) => {
+        mechanism.closeFloor1Door()
+        mechanism.closeCarDoor()
+        elevator.state = STATE_SEEK_2
+    })
     .on(EVENT_GO_3, (elevator, mechanism) => {
         mechanism.closeFloor1Door()
         mechanism.closeCarDoor()
@@ -125,7 +130,7 @@ let states = new Builder()
         elevator.state = STATE_SEEK_1
     })
     .on(EVENT_OPEN_2, (elevator, mechanism) => {
-        mechanism.openFloor3Door()
+        mechanism.openFloor2Door()
         elevator.state = STATE_FLOOR_2
     })
 .for(STATE_FLOOR_2)
