@@ -50,11 +50,14 @@ $(function() {
         }
     })
 
-    $('#get-3').click(function(event) {
-        elevator.event(Elevator.GO_3)
-    })
     $('#get-1').click(function(event) {
         elevator.event(Elevator.GO_1)
+    })
+    $('#get-2').click(function(event) {
+        elevator.event(Elevator.GO_2)
+    })
+    $('#get-3').click(function(event) {
+        elevator.event(Elevator.GO_3)
     })
 
     $('#go-1').click(function(event) {
@@ -79,6 +82,12 @@ $(function() {
     })
     $('#close-1').click((event) => {
         mechanism.closeFloor1Door()
+    })
+    $('#open-2').click((event) => {
+        elevator.event(Elevator.OPEN_2)
+    })
+    $('#close-2').click((event) => {
+        mechanism.closeFloor2Door()
     })
     $('#open-3').click((event) => {
         elevator.event(Elevator.OPEN_3)

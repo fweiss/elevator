@@ -42,14 +42,17 @@ const EVENT_OPENED_CAR = 'opened-car'
 class Builder {
     constructor() {
         this.graph = {}
-        this.state = ''
+        // this.state = ''
     }
     for(state) {
-        this.graph[state] = {}
+        this.graph[state] = this.graph[state] || {}
         this.state = state
         return this
     }
     on(event, handler) {
+        if (this.graph[this.state][event]) {
+            throw new Error('duplicate handler: state: ' + this.state + ' event: ' + event)
+        }
         this.graph[this.state][event] = handler
         return this
     }
@@ -63,12 +66,17 @@ let states = new Builder()
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.state = STATE_OPEN_1
     })
+
 .for(STATE_SEEK_1)
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
         mechanism.carDown()
         elevator.state = STATE_CLOSE_1
     })
 .for(STATE_CLOSE_1)
+    .on(EVENT_GO_2, (elevator, mechanism) => {
+        mechanism.carUp()
+        elevator.state = STATE_CLOSE_2
+    })
     .on(EVENT_GO_3, (elevator, mechanism) => {
         mechanism.carUp()
         elevator.state = STATE_CLOSE_3
@@ -98,7 +106,32 @@ let states = new Builder()
         elevator.state = STATE_OPEN_1
     })
 
-
+.for(STATE_SEEK_2)
+    .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
+        mechanism.carUp()
+        elevator.state = STATE_CLOSE_2
+    })
+.for(STATE_CLOSE_2)
+    .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
+        elevator.state = STATE_OPEN_2
+    })
+    .on(EVENT_AT_2, (elevator, mechanism) => {
+        mechanism.stop()
+        mechanism.openCarDoor()
+    })
+.for(STATE_OPEN_2)
+    .on(EVENT_GO_1, (elevator, mechanism) => {
+        mechanism.closeCarDoor()
+        elevator.state = STATE_SEEK_1
+    })
+    .on(EVENT_OPEN_2, (elevator, mechanism) => {
+        mechanism.openFloor3Door()
+        elevator.state = STATE_FLOOR_2
+    })
+.for(STATE_FLOOR_2)
+    .on(EVENT_CLOSED_2, (elevator, mechanism) => {
+        elevator.state = STATE_OPEN_2
+    })
 
 .for(STATE_SEEK_3)
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
