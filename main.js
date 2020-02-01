@@ -19,31 +19,12 @@ $(function() {
             elevator.event(Elevator.AT_1)
         }
     })
-
-    $('#go-1').click(function(event) {
-        elevator.event(Elevator.GO_1)
-    })
-    $('#go-2').click(function(event) {
-        mechanism.carActuator.in()
-    })
-    $('#go-3').click(function(event) {
-        elevator.event(Elevator.GO_3)
-    })
-
-    $('#open').click(function(event) {
-        mechanism.openCarDoor()
-    })
-    $('#close').click(function(event) {
-        mechanism.closeCarDoor()
-    })
-    $('#get-3').click(function(event) {
-        mechanism.openFloor3Door()
-    })
     $(mechanism.carDoorActuator).on('position', function(event, position) {
         $('#car .door').css('right', position)
     })
     $(mechanism.carDoorActuator).on('detector', function(event, position) {
         console.log('car door detector: ' + position)
+        elevator.event(position == 50 ? Elevator.OPENED_CAR : Elevator.CLOSED_CAR)
     })
 
     $(mechanism.floor3DoorActuator).on('position', function(event, position) {
@@ -67,6 +48,43 @@ $(function() {
         if (position == 0) {
             elevator.event(Elevator.CLOSED_1)
         }
+    })
+
+    $('#get-3').click(function(event) {
+        elevator.event(Elevator.GO_3)
+    })
+    $('#get-1').click(function(event) {
+        elevator.event(Elevator.GO_1)
+    })
+
+    $('#go-1').click(function(event) {
+        elevator.event(Elevator.GO_1)
+    })
+    $('#go-2').click(function(event) {
+        mechanism.carActuator.in()
+    })
+    $('#go-3').click(function(event) {
+        elevator.event(Elevator.GO_3)
+    })
+
+    $('#open').click(function(event) {
+        mechanism.openCarDoor()
+    })
+    $('#close').click(function(event) {
+        mechanism.closeCarDoor()
+    })
+
+    $('#open-1').click((event) => {
+        elevator.event(Elevator.OPEN_1)
+    })
+    $('#close-1').click((event) => {
+        mechanism.closeFloor1Door()
+    })
+    $('#open-3').click((event) => {
+        elevator.event(Elevator.OPEN_3)
+    })
+    $('#close-3').click((event) => {
+        mechanism.closeFloor3Door()
     })
 
 
