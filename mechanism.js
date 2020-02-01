@@ -16,7 +16,6 @@ export default class Mechanism {
     }
     stop() {
         this.carActuator.stop()
-        // $(this).trigger('stop')
     }
     openCarDoor() {
         this.carDoorActuator.out()
