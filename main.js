@@ -65,31 +65,14 @@ $(function() {
         }
     })
 
-    $('#get-1').click(function(event) {
+    $('#get-1, #go-1').click(function(event) {
         elevator.event(Elevator.GO_1)
     })
-    $('#get-2').click(function(event) {
+    $('#get-2, #go-2').click(function(event) {
         elevator.event(Elevator.GO_2)
     })
-    $('#get-3').click(function(event) {
+    $('#get-3, #go-3').click(function(event) {
         elevator.event(Elevator.GO_3)
-    })
-
-    $('#go-1').click(function(event) {
-        elevator.event(Elevator.GO_1)
-    })
-    $('#go-2').click(function(event) {
-        elevator.event(Elevator.GO_2)
-    })
-    $('#go-3').click(function(event) {
-        elevator.event(Elevator.GO_3)
-    })
-
-    $('#open').click(function(event) {
-        mechanism.openCarDoor()
-    })
-    $('#close').click(function(event) {
-        mechanism.closeCarDoor()
     })
 
     $('#open-1').click((event) => {
