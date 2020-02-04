@@ -1,6 +1,6 @@
 import Actuator from './actuator.js'
 import Mechanism from './mechanism.js'
-import Elevator from './elevator.js'
+import Elevator from './elevator-1.js'
 
 $(function() {
 
