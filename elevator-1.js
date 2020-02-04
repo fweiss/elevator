@@ -99,6 +99,9 @@ let states = new Builder()
     })
 .for(STATE_FLOOR_1)
     .on(EVENT_CLOSED_1, (elevator, mechanism) => {
+        if (elevator.checkGo(2) || elevator.checkGo(3)) {
+            mechanism.closeCarDoor()
+        }
         elevator.state = STATE_OPEN_1
     })
     .on(EVENT_GO_2, (elevator, mechanism) => {
@@ -142,6 +145,9 @@ let states = new Builder()
     })
 .for(STATE_FLOOR_2)
     .on(EVENT_CLOSED_2, (elevator, mechanism) => {
+        if (elevator.checkGo(1) || elevator.checkGo(3)) {
+            mechanism.closeCarDoor()
+        }
         elevator.state = STATE_OPEN_2
     })
     .on(EVENT_GO_2, (elevator, mechanism) => {
@@ -185,6 +191,9 @@ let states = new Builder()
     })
 .for(STATE_FLOOR_3)
     .on(EVENT_CLOSED_3, (elevator, mechanism) => {
+        if (elevator.checkGo(1) || elevator.checkGo(2)) {
+            mechanism.closeCarDoor()
+        }
         elevator.state = STATE_OPEN_3
     })
     .on(EVENT_GO_1, (elevator, mechanism) => {
@@ -233,6 +242,7 @@ export default class Elevator {
         return this._state
     }
     set go(go) {
+        console.log('enter extended state go: ' + go)
         this._go = go
     }
     checkGo(val) {
