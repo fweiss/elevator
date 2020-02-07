@@ -63,6 +63,7 @@ let states = new Builder()
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.state = STATE_OPEN_1
         elevator.go = 0
+        elevator.wait = 0
     })
 
 .for(STATE_CLOSE_1)
@@ -72,6 +73,7 @@ let states = new Builder()
         mechanism.openCarDoor()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
+        elevator.wait = 1
         elevator.state = STATE_OPEN_1
     })
 .for(STATE_OPEN_1)
@@ -88,18 +90,18 @@ let states = new Builder()
         elevator.go = 3
     })
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
-        if (elevator.checkGo(2)) {
+        if (elevator.go == 2) {
             elevator.state = STATE_CLOSE_2
             mechanism.carUp()
         }
-        if (elevator.checkGo(3)) {
+        if (elevator.go == 3) {
             elevator.state = STATE_CLOSE_3
             mechanism.carUp()
         }
     })
 .for(STATE_FLOOR_1)
     .on(EVENT_CLOSED_1, (elevator, mechanism) => {
-        if (elevator.checkGo(2) || elevator.checkGo(3)) {
+        if (elevator.go = 2 || elevator.go == 3) {
             mechanism.closeCarDoor()
         }
         elevator.state = STATE_OPEN_1
@@ -118,6 +120,7 @@ let states = new Builder()
         mechanism.openCarDoor()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
+        elevator.wait = 1
         elevator.state = STATE_OPEN_2
     })
 .for(STATE_OPEN_2)
@@ -134,18 +137,18 @@ let states = new Builder()
         elevator.go = 3
     })
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
-        if (elevator.checkGo(1)) {
+        if (elevator.go == 1) {
             elevator.state = STATE_CLOSE_1
             mechanism.carDown()
         }
-        if (elevator.checkGo(3)) {
+        if (elevator.go == 3) {
             elevator.state = STATE_CLOSE_3
             mechanism.carUp()
         }
     })
 .for(STATE_FLOOR_2)
     .on(EVENT_CLOSED_2, (elevator, mechanism) => {
-        if (elevator.checkGo(1) || elevator.checkGo(3)) {
+        if (elevator.go == 1 || elevator.go == 3) {
             mechanism.closeCarDoor()
         }
         elevator.state = STATE_OPEN_2
@@ -164,6 +167,7 @@ let states = new Builder()
         mechanism.openCarDoor()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
+        elevator.wait = 1
         elevator.state = STATE_OPEN_3
     })
 .for(STATE_OPEN_3)
@@ -180,18 +184,18 @@ let states = new Builder()
         elevator.go = 2
     })
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
-        if (elevator.checkGo(1)) {
+        if (elevator.go == 1) {
             elevator.state = STATE_CLOSE_1
             mechanism.carDown()
         }
-        if (elevator.checkGo(2)) {
+        if (elevator.go == 2) {
             elevator.state = STATE_CLOSE_2
             mechanism.carDown()
         }
     })
 .for(STATE_FLOOR_3)
     .on(EVENT_CLOSED_3, (elevator, mechanism) => {
-        if (elevator.checkGo(1) || elevator.checkGo(2)) {
+        if (elevator.go == 1 || elevator.go == 2) {
             mechanism.closeCarDoor()
         }
         elevator.state = STATE_OPEN_3
@@ -245,8 +249,15 @@ export default class Elevator {
         console.log('enter extended state go: ' + go)
         this._go = go
     }
-    checkGo(val) {
-        return this._go == val
+    get go() {
+        return this._go
+    }
+    set wait(wait) {
+        console.log('enter extended state wait: ' + wait)
+        this._wait = wait
+    }
+    get wait() {
+        return this._wait
     }
     event(event) {
         let self = this
