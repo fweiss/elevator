@@ -1,4 +1,5 @@
 const STATE_RESET = 'reset'
+
 const STATE_OPEN_3 = 'open_3'
 const STATE_OPEN_2 = 'open_2'
 const STATE_OPEN_1 = 'open_1'
@@ -8,6 +9,9 @@ const STATE_CLOSE_1 = 'close_1'
 const STATE_FLOOR_3 = 'floor_3'
 const STATE_FLOOR_2 = 'floor_2'
 const STATE_FLOOR_1 = 'floor_1'
+const STATE_READY_1 = 'ready-1'
+const STATE_READY_2 = 'ready-2'
+const STATE_READY_3 = 'ready-3'
 
 
 const EVENT_GO_3 = 'go_3'
@@ -63,7 +67,6 @@ let states = new Builder()
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.state = STATE_OPEN_1
         elevator.go = 0
-        elevator.wait = 0
     })
 
 .for(STATE_CLOSE_1)
@@ -101,7 +104,8 @@ let states = new Builder()
     })
 .for(STATE_FLOOR_1)
     .on(EVENT_CLOSED_1, (elevator, mechanism) => {
-        if (elevator.go = 2 || elevator.go == 3) {
+        // if (elevator.go = 2 || elevator.go == 3) {
+        if ([2, 3].includes(elevator.go)) {
             mechanism.closeCarDoor()
         }
         elevator.state = STATE_OPEN_1
@@ -251,13 +255,6 @@ export default class Elevator {
     }
     get go() {
         return this._go
-    }
-    set wait(wait) {
-        console.log('enter extended state wait: ' + wait)
-        this._wait = wait
-    }
-    get wait() {
-        return this._wait
     }
     event(event) {
         let self = this
