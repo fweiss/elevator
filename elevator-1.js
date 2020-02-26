@@ -157,7 +157,7 @@ let states = new Builder()
         }
         elevator.state = STATE_OPEN_2
     })
-    .on(EVENT_GO_2, (elevator, mechanism) => {
+    .on(EVENT_GO_1, (elevator, mechanism) => {
         elevator.go = 1
     })
     .on(EVENT_GO_3, (elevator, mechanism) => {
@@ -212,6 +212,9 @@ let states = new Builder()
     })
 
 .build()
+
+// floor(2).down(1).up(3)
+// floor(3).down(1).down(2)
 
 console.log(states)
 
