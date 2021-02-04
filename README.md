@@ -11,8 +11,14 @@ I found an interesting ES6 pattern to build a state machine without
 a lot of pointless gory code.
 
 ## Code structure
-The mechanism.js file constructs an abstraction for the elevator's
-sensors and actuators
+The mechanism.js file constructs the elevator's
+sensors and actuators.
+This construction is decoupled from the implementation of the state machine.
+
+The actuator.js file implements the basic component that comprises the
+elevator mechanism.
+It is implemented with jquery to accept button click events and to provide
+animations via CSS.
 
 The elevator.js file constructs a state machine that defines the elevator's
 behavior. It consists of four parts:
@@ -21,7 +27,9 @@ behavior. It consists of four parts:
 - a fluent definition of the state dispatcher
 - an elevator class which realizes the state machine
 
-The focus was on the dispatcher, "states", to make it fluent.
+The focus of this project was on the state dispatcher.
+The intent was to make a fluent representation of the state machine
+in code.
 State machines can of course be constructed out of if-then-else trees.
 But that turns into a bunch of spaghetti code that, for non-trivial
 cases, is difficult to understand and maintain.
@@ -30,7 +38,7 @@ to see what events a state responds to and what the state transitions
 do.
 
 The main.js file has an IIFE that uses jquery to wire up the 
-graphical elements with the elevator FSM and the mechanism.
+graphical elements with the elevator state machine and the mechanism.
 
 ## Simulation
 The index.html file runs a simple graphical simulation.
