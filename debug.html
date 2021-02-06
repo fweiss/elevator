@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>elevator</title>
+        <script src="jquery-3.4.0.js"></script>
+        <script src="main.js" type="module"></script>
+        <style>
+#floors {
+    display: block;
+    position: relative;
+    width: 400px;
+    padding: 2em;
+}
+floor {
+    display: block;
+    border-bottom: 2px solid black;
+    height: 120px;
+    width: auto;
+
+}
+door {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 100px;
+    border: 1px solid black;
+    background-color: green;
+}
+.door-frame {
+    position: relative;
+    bottom: 0;
+    height: 120px;
+    padding-left: 10em;
+}
+.buttons button {
+    display: block;
+}
+floor .buttons {
+    float: left;
+} 
+#floors {
+    background-color: gray;
+}
+floor {
+    background-color: yellow;
+}    
+        </style>
+    </head>
+    <body>
+        <div id="elevator">
+            <div id="floors">
+                <floor id="floor-3" class="floor">
+                    <div class="buttons">
+                        <button id="get-3">G</button>
+                        <button id="open-3">O</button>
+                        <button id="close-3">C</button>
+                    </div>
+                    <div class="door-frame">
+                        <span>3</span>
+                        <door id="door-3"></door>
+                    </div>
+                </floor>
+                <floor id="floor-2" class="floor">
+                    <div class="buttons">
+                        <button id="get-2">G</button>
+                        <button id="open-2">O</button>
+                        <button id="close-2">C</button>
+                    </div>
+                    <div class="door-frame">
+                        <span>2</span>
+                        <door id="door-3"></door>
+                    </div>
+                </floor>
+                <floor id="floor-1" class="floor">
+                    <div class="buttons">
+                        <button id="get-1">G</button>
+                        <button id="open-1">O</button>
+                        <button id="close-1">C</button>
+                    </div>
+                    <div class="door-frame">
+                        <span>1</span>
+                        <door id="door-1"></door>
+                    </div>
+                </floor>
+            </div>
+            <div id="car">
+                <div class="door-frame">
+                    <door id="door-car"></door>
+                </div>
+                <div class="buttons">
+                    <button id="go-3">3</button>
+                    <button id="go-2">2</button>
+                    <button id="go-1">1</button>
+                </div>
+            </div>
+        </div>
+        <div id="imprint">
+            <a href="https://github.com/fweiss/elevator">Source code</a>
+        </div>
+    </body>
+</html>
