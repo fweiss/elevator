@@ -11,9 +11,9 @@ export default class Actuator {
     }
     triggerDetector() {
         let self = this
-        self.detectors.forEach((position) => {
+        self.detectors.forEach((position, index) => {
             if (self.position == position) {
-                $(self).trigger('detector', [ position ])
+                $(self).trigger('detector', index)
             }
         })
     }

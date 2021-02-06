@@ -13,19 +13,31 @@ const STATE_READY_1 = 'ready-1'
 const STATE_READY_2 = 'ready-2'
 const STATE_READY_3 = 'ready-3'
 
-
+// request to go to a particular floor
 const EVENT_GO_3 = 'go_3'
 const EVENT_GO_2 = 'go_2'
 const EVENT_GO_1 = 'go_1'
 
+// @deprecated, decided no separate floor/car events needed
 const EVENT_CALL_3 = 'call_3'
 const EVENT_CALL_2 = 'call_2'
 const EVENT_CALL_1 = 'call_1'
 
+// request to open outer door on particular floor
+const EVENT_OPEN_1 = 'open-1'
+const EVENT_OPEN_2 = 'open-2'
+const EVENT_OPEN_3 = 'open-3'
+
+// detected car has reached a particular floor
 const EVENT_AT_3 = 'at_3'
 const EVENT_AT_2 = 'at_2'
 const EVENT_AT_1 = 'at_1'
 
+// detected car door opened/closed
+const EVENT_CLOSED_CAR = 'closed-car'
+const EVENT_OPENED_CAR = 'opened-car'
+
+// detected floor door opened/closed on particular floor
 const EVENT_CLOSED_3 = 'closed_3'
 const EVENT_CLOSED_2 = 'closed_2'
 const EVENT_CLOSED_1 = 'closed_1'
@@ -33,13 +45,10 @@ const EVENT_CLOSED_1 = 'closed_1'
 const EVENT_OPENED_3 = 'opened_3'
 const EVENT_OPENED_2 = 'opened_2'
 const EVENT_OPENED_1 = 'opened_1'
-const EVENT_OPEN_1 = 'open-1'
-const EVENT_OPEN_2 = 'open-2'
-const EVENT_OPEN_3 = 'open-3'
 
-const EVENT_CLOSED_CAR = 'closed-car'
-const EVENT_OPENED_CAR = 'opened-car'
-
+// build an event dispatcher
+// two dimensional array [state][event]
+// of handler functions
 class Builder {
     constructor() {
         this.graph = {}
