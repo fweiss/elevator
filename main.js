@@ -1,15 +1,13 @@
-import Actuator from './actuator.js'
 import Mechanism from './mechanism.js'
 import { Elevator, Event } from './elevator-1.js'
 
 $(function() {
 
-    let mechanism = new Mechanism()
-    let elevator = new Elevator(mechanism)
+    const mechanism = new Mechanism()
+    const elevator = new Elevator(mechanism)
 
     $(mechanism.carActuator).on('position', function(event, position) {
-        let offset = position + 0 //11
-        $('#car').css('bottom', offset)
+        $('#car').css('bottom', position)
     })
     $(mechanism.carActuator).on('detector', function(event, index) {
         console.log('car detector: ', index)

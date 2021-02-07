@@ -1,51 +1,3 @@
-// const STATE_RESET = 'reset'
-//
-// const STATE_OPEN_3 = 'open_3'
-// const STATE_OPEN_2 = 'open_2'
-// const STATE_OPEN_1 = 'open_1'
-// const STATE_CLOSE_3 = 'close_3'
-// const STATE_CLOSE_2 = 'close_2'
-// const STATE_CLOSE_1 = 'close_1'
-// const STATE_FLOOR_3 = 'floor_3'
-// const STATE_FLOOR_2 = 'floor_2'
-// const STATE_FLOOR_1 = 'floor_1'
-// const STATE_READY_1 = 'ready-1'
-// const STATE_READY_2 = 'ready-2'
-// const STATE_READY_3 = 'ready-3'
-
-// request to go to a particular floor
-const EVENT_GO_3 = 'go_3'
-const EVENT_GO_2 = 'go_2'
-const EVENT_GO_1 = 'go_1'
-
-// @deprecated, decided no separate floor/car events needed
-const EVENT_CALL_3 = 'call_3'
-const EVENT_CALL_2 = 'call_2'
-const EVENT_CALL_1 = 'call_1'
-
-// request to open outer door on particular floor
-const EVENT_OPEN_1 = 'open-1'
-const EVENT_OPEN_2 = 'open-2'
-const EVENT_OPEN_3 = 'open-3'
-
-// detected car has reached a particular floor
-const EVENT_AT_3 = 'at_3'
-const EVENT_AT_2 = 'at_2'
-const EVENT_AT_1 = 'at_1'
-
-// detected car door opened/closed
-const EVENT_CLOSED_CAR = 'closed-car'
-const EVENT_OPENED_CAR = 'opened-car'
-
-// detected floor door opened/closed on particular floor
-const EVENT_CLOSED_3 = 'closed_3'
-const EVENT_CLOSED_2 = 'closed_2'
-const EVENT_CLOSED_1 = 'closed_1'
-
-const EVENT_OPENED_3 = 'opened_3'
-const EVENT_OPENED_2 = 'opened_2'
-const EVENT_OPENED_1 = 'opened_1'
-
 class State {
     static RESET = 'reset'
     static OPEN_3 = 'open_3'
@@ -123,7 +75,7 @@ class Builder {
     }
 }
 
-let states = new Builder()
+const states = new Builder()
 .for(State.RESET)
     .on(Event.OPENED_CAR, (elevator, mechanism) => {
         elevator.state = State.OPEN_1
@@ -274,34 +226,13 @@ let states = new Builder()
 
 .build()
 
+// alternate DSL?
 // floor(2).down(1).up(3)
 // floor(3).down(1).down(2)
 
 console.log(states)
 
 export class Elevator {
-    // restatement used in main.js
-    // static GO_3 = EVENT_GO_3
-    // static GO_2 = EVENT_GO_2
-    // static GO_1 = EVENT_GO_1
-    //
-    // static AT_3 = EVENT_AT_3
-    // static AT_2 = EVENT_AT_2
-    // static AT_1 = EVENT_AT_1
-    //
-    // static OPENED_3 = EVENT_OPENED_3
-    // static OPENED_2 = EVENT_OPENED_2
-    // static OPENED_1 = EVENT_OPENED_1
-    // static CLOSED_3 = EVENT_CLOSED_3
-    // static CLOSED_2 = EVENT_CLOSED_2
-    // static CLOSED_1 = EVENT_CLOSED_1
-    // static OPEN_1 = EVENT_OPEN_1
-    // static OPEN_2 = EVENT_OPEN_2
-    // static OPEN_3 = EVENT_OPEN_3
-    //
-    // static CLOSED_CAR = EVENT_CLOSED_CAR
-    // static OPENED_CAR = EVENT_OPENED_CAR
-
     constructor(mechanism) {
         this.mechanism = mechanism
         mechanism.openCarDoor()
@@ -323,10 +254,9 @@ export class Elevator {
         return this._go
     }
     event(event) {
-        let self = this
-        let dispatch = states[this.state][event] || function() {
-            console.log('no handler: event: ' + event + ' for state: '+  self.state)
-        }
+        const dispatch = states[this.state][event] || (() => {
+            console.log('no handler: event: ' + event + ' for state: '+  this.state)
+        })
         dispatch(this, this.mechanism)
     }
 }
