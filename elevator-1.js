@@ -1,17 +1,17 @@
-const STATE_RESET = 'reset'
-
-const STATE_OPEN_3 = 'open_3'
-const STATE_OPEN_2 = 'open_2'
-const STATE_OPEN_1 = 'open_1'
-const STATE_CLOSE_3 = 'close_3'
-const STATE_CLOSE_2 = 'close_2'
-const STATE_CLOSE_1 = 'close_1'
-const STATE_FLOOR_3 = 'floor_3'
-const STATE_FLOOR_2 = 'floor_2'
-const STATE_FLOOR_1 = 'floor_1'
-const STATE_READY_1 = 'ready-1'
-const STATE_READY_2 = 'ready-2'
-const STATE_READY_3 = 'ready-3'
+// const STATE_RESET = 'reset'
+//
+// const STATE_OPEN_3 = 'open_3'
+// const STATE_OPEN_2 = 'open_2'
+// const STATE_OPEN_1 = 'open_1'
+// const STATE_CLOSE_3 = 'close_3'
+// const STATE_CLOSE_2 = 'close_2'
+// const STATE_CLOSE_1 = 'close_1'
+// const STATE_FLOOR_3 = 'floor_3'
+// const STATE_FLOOR_2 = 'floor_2'
+// const STATE_FLOOR_1 = 'floor_1'
+// const STATE_READY_1 = 'ready-1'
+// const STATE_READY_2 = 'ready-2'
+// const STATE_READY_3 = 'ready-3'
 
 // request to go to a particular floor
 const EVENT_GO_3 = 'go_3'
@@ -46,6 +46,58 @@ const EVENT_OPENED_3 = 'opened_3'
 const EVENT_OPENED_2 = 'opened_2'
 const EVENT_OPENED_1 = 'opened_1'
 
+class State {
+    static RESET = 'reset'
+    static OPEN_3 = 'open_3'
+    static OPEN_2 = 'open_2'
+    static OPEN_1 = 'open_1'
+    static CLOSE_3 = 'close_3'
+    static CLOSE_2 = 'close_2'
+    static CLOSE_1 = 'close_1'
+    static FLOOR_3 = 'floor_3'
+    static FLOOR_2 = 'floor_2'
+    static FLOOR_1 = 'floor_1'
+    static READY_1 = 'ready-1'
+    static READY_2 = 'ready-2'
+    static READY_3 = 'ready-3'
+}
+
+class Event {
+    // request to go to a particular floor
+    static EVENT_GO_3 = 'go_3'
+    static EVENT_GO_2 = 'go_2'
+    static EVENT_GO_1 = 'go_1'
+
+// @deprecated, decided no separate floor/car events needed
+    static EVENT_CALL_3 = 'call_3'
+    static EVENT_CALL_2 = 'call_2'
+    static EVENT_CALL_1 = 'call_1'
+
+// request to open outer door on particular floor
+    static EVENT_OPEN_1 = 'open-1'
+    static EVENT_OPEN_2 = 'open-2'
+    static EVENT_OPEN_3 = 'open-3'
+
+// detected car has reached a particular floor
+    static EVENT_AT_3 = 'at_3'
+    static EVENT_AT_2 = 'at_2'
+    static EVENT_AT_1 = 'at_1'
+
+// detected car door opened/closed
+    static EVENT_CLOSED_CAR = 'closed-car'
+    static EVENT_OPENED_CAR = 'opened-car'
+
+// detected floor door opened/closed on particular floor
+    static EVENT_CLOSED_3 = 'closed_3'
+    static EVENT_CLOSED_2 = 'closed_2'
+    static EVENT_CLOSED_1 = 'closed_1'
+
+    static EVENT_OPENED_3 = 'opened_3'
+    static EVENT_OPENED_2 = 'opened_2'
+    static EVENT_OPENED_1 = 'opened_1'
+
+}
+
 // build an event dispatcher
 // two dimensional array [state][event]
 // of handler functions
@@ -72,13 +124,13 @@ class Builder {
 }
 
 let states = new Builder()
-.for(STATE_RESET)
+.for(State.RESET)
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
-        elevator.state = STATE_OPEN_1
+        elevator.state = State.OPEN_1
         elevator.go = 0
     })
 
-.for(STATE_CLOSE_1)
+.for(State.CLOSE_1)
     .on(EVENT_AT_1, (elevator, mechanism) => {
         elevator.go = 0
         mechanism.stop()
@@ -86,12 +138,12 @@ let states = new Builder()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.wait = 1
-        elevator.state = STATE_OPEN_1
+        elevator.state = State.OPEN_1
     })
-.for(STATE_OPEN_1)
+.for(State.OPEN_1)
     .on(EVENT_OPEN_1, (elevator, mechanism) => {
         mechanism.openFloor1Door()
-        elevator.state = STATE_FLOOR_1
+        elevator.state = State.FLOOR_1
     })
     .on(EVENT_GO_2, (elevator, mechanism) => {
         mechanism.closeCarDoor()
@@ -103,21 +155,21 @@ let states = new Builder()
     })
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
         if (elevator.go == 2) {
-            elevator.state = STATE_CLOSE_2
+            elevator.state = State.CLOSE_2
             mechanism.carUp()
         }
         if (elevator.go == 3) {
-            elevator.state = STATE_CLOSE_3
+            elevator.state = State.CLOSE_3
             mechanism.carUp()
         }
     })
-.for(STATE_FLOOR_1)
+.for(State.FLOOR_1)
     .on(EVENT_CLOSED_1, (elevator, mechanism) => {
         // if (elevator.go = 2 || elevator.go == 3) {
         if ([2, 3].includes(elevator.go)) {
             mechanism.closeCarDoor()
         }
-        elevator.state = STATE_OPEN_1
+        elevator.state = State.OPEN_1
     })
     .on(EVENT_GO_2, (elevator, mechanism) => {
         elevator.go = 2
@@ -126,7 +178,7 @@ let states = new Builder()
         elevator.go = 3
     })
 
-.for(STATE_CLOSE_2)
+.for(State.CLOSE_2)
     .on(EVENT_AT_2, (elevator, mechanism) => {
         elevator.go = 0
         mechanism.stop()
@@ -134,12 +186,12 @@ let states = new Builder()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.wait = 1
-        elevator.state = STATE_OPEN_2
+        elevator.state = State.OPEN_2
     })
-.for(STATE_OPEN_2)
+.for(State.OPEN_2)
     .on(EVENT_OPEN_2, (elevator, mechanism) => {
         mechanism.openFloor2Door()
-        elevator.state = STATE_FLOOR_2
+        elevator.state = State.FLOOR_2
     })
     .on(EVENT_GO_1, (elevator, mechanism) => {
         mechanism.closeCarDoor()
@@ -151,20 +203,20 @@ let states = new Builder()
     })
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
         if (elevator.go == 1) {
-            elevator.state = STATE_CLOSE_1
+            elevator.state = State.CLOSE_1
             mechanism.carDown()
         }
         if (elevator.go == 3) {
-            elevator.state = STATE_CLOSE_3
+            elevator.state = State.CLOSE_3
             mechanism.carUp()
         }
     })
-.for(STATE_FLOOR_2)
+.for(State.FLOOR_2)
     .on(EVENT_CLOSED_2, (elevator, mechanism) => {
         if (elevator.go == 1 || elevator.go == 3) {
             mechanism.closeCarDoor()
         }
-        elevator.state = STATE_OPEN_2
+        elevator.state = State.OPEN_2
     })
     .on(EVENT_GO_1, (elevator, mechanism) => {
         elevator.go = 1
@@ -173,7 +225,7 @@ let states = new Builder()
         elevator.go = 3
     })
 
-.for(STATE_CLOSE_3)
+.for(State.CLOSE_3)
     .on(EVENT_AT_3, (elevator, mechanism) => {
         elevator.go = 0
         mechanism.stop()
@@ -181,12 +233,12 @@ let states = new Builder()
     })
     .on(EVENT_OPENED_CAR, (elevator, mechanism) => {
         elevator.wait = 1
-        elevator.state = STATE_OPEN_3
+        elevator.state = State.OPEN_3
     })
-.for(STATE_OPEN_3)
+.for(State.OPEN_3)
     .on(EVENT_OPEN_3, (elevator, mechanism) => {
         mechanism.openFloor3Door()
-        elevator.state = STATE_FLOOR_3
+        elevator.state = State.FLOOR_3
     })
     .on(EVENT_GO_1, (elevator, mechanism) => {
         mechanism.closeCarDoor()
@@ -198,20 +250,20 @@ let states = new Builder()
     })
     .on(EVENT_CLOSED_CAR, (elevator, mechanism) => {
         if (elevator.go == 1) {
-            elevator.state = STATE_CLOSE_1
+            elevator.state = State.CLOSE_1
             mechanism.carDown()
         }
         if (elevator.go == 2) {
-            elevator.state = STATE_CLOSE_2
+            elevator.state = State.CLOSE_2
             mechanism.carDown()
         }
     })
-.for(STATE_FLOOR_3)
+.for(State.FLOOR_3)
     .on(EVENT_CLOSED_3, (elevator, mechanism) => {
         if (elevator.go == 1 || elevator.go == 2) {
             mechanism.closeCarDoor()
         }
-        elevator.state = STATE_OPEN_3
+        elevator.state = State.OPEN_3
     })
     .on(EVENT_GO_1, (elevator, mechanism) => {
         elevator.go = 1
@@ -228,6 +280,7 @@ let states = new Builder()
 console.log(states)
 
 export default class Elevator {
+    // restatement used in main.js
     static GO_3 = EVENT_GO_3
     static GO_2 = EVENT_GO_2
     static GO_1 = EVENT_GO_1
@@ -252,7 +305,7 @@ export default class Elevator {
     constructor(mechanism) {
         this.mechanism = mechanism
         mechanism.openCarDoor()
-        this.state = STATE_RESET
+        this.state = State.RESET
     }
     set state(state) {
         console.log('enter state: ' + state)
