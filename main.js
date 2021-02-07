@@ -1,6 +1,6 @@
 import Actuator from './actuator.js'
 import Mechanism from './mechanism.js'
-import Elevator from './elevator-1.js'
+import { Elevator, Event } from './elevator-1.js'
 
 $(function() {
 
@@ -14,13 +14,13 @@ $(function() {
     $(mechanism.carActuator).on('detector', function(event, index) {
         console.log('car detector: ', index)
         if (index == 2) {
-            elevator.event(Elevator.AT_3)
+            elevator.event(Event.AT_3)
         }
         if (index == 1) {
-            elevator.event(Elevator.AT_2)
+            elevator.event(Event.AT_2)
         }
         if (index == 0) {
-            elevator.event(Elevator.AT_1)
+            elevator.event(Event.AT_1)
         }
     })
     $(mechanism.carDoorActuator).on('position', function(event, position) {
@@ -28,7 +28,7 @@ $(function() {
     })
     $(mechanism.carDoorActuator).on('detector', function(event, index) {
         console.log('car door detector: ' + index)
-        elevator.event(index == 1 ? Elevator.OPENED_CAR : Elevator.CLOSED_CAR)
+        elevator.event(index == 1 ? Event.OPENED_CAR : Event.CLOSED_CAR)
     })
 
     $(mechanism.floor1DoorActuator).on('position', function(event, position) {
@@ -36,10 +36,10 @@ $(function() {
     })
     $(mechanism.floor1DoorActuator).on('detector', function(event, index) {
         if (index == 1) {
-            elevator.event(Elevator.OPENED_1)
+            elevator.event(Event.OPENED_1)
         }
         if (index == 0) {
-            elevator.event(Elevator.CLOSED_1)
+            elevator.event(Event.CLOSED_1)
         }
     })
     $(mechanism.floor2DoorActuator).on('position', function(event, position) {
@@ -47,10 +47,10 @@ $(function() {
     })
     $(mechanism.floor2DoorActuator).on('detector', function(event, index) {
         if (index == 1) {
-            elevator.event(Elevator.OPENED_2)
+            elevator.event(Event.OPENED_2)
         }
         if (index == 0) {
-            elevator.event(Elevator.CLOSED_2)
+            elevator.event(Event.CLOSED_2)
         }
     })
     $(mechanism.floor3DoorActuator).on('position', function(event, position) {
@@ -58,37 +58,37 @@ $(function() {
     })
     $(mechanism.floor3DoorActuator).on('detector', function(event, index) {
         if (index == 1) {
-            elevator.event(Elevator.OPENED_3)
+            elevator.event(Event.OPENED_3)
         }
         if (index == 0) {
-            elevator.event(Elevator.CLOSED_3)
+            elevator.event(Event.CLOSED_3)
         }
     })
 
     $('#get-1, #go-1').click(function(event) {
-        elevator.event(Elevator.GO_1)
+        elevator.event(Event.GO_1)
     })
     $('#get-2, #go-2').click(function(event) {
-        elevator.event(Elevator.GO_2)
+        elevator.event(Event.GO_2)
     })
     $('#get-3, #go-3').click(function(event) {
-        elevator.event(Elevator.GO_3)
+        elevator.event(Event.GO_3)
     })
 
     $('#open-1').click((event) => {
-        elevator.event(Elevator.OPEN_1)
+        elevator.event(Event.OPEN_1)
     })
     $('#close-1').click((event) => {
         mechanism.closeFloor1Door()
     })
     $('#open-2').click((event) => {
-        elevator.event(Elevator.OPEN_2)
+        elevator.event(Event.OPEN_2)
     })
     $('#close-2').click((event) => {
         mechanism.closeFloor2Door()
     })
     $('#open-3').click((event) => {
-        elevator.event(Elevator.OPEN_3)
+        elevator.event(Event.OPEN_3)
     })
     $('#close-3').click((event) => {
         mechanism.closeFloor3Door()
@@ -98,6 +98,5 @@ $(function() {
         $('#get-1, #get-2, #get-3, #go-1, #go-2, #go-3').css('background-color', 'white')
         $('#get-' + go + ', #go-' + go).css('background-color', 'lightblue')
     })
-
 
 })
