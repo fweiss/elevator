@@ -1,68 +1,93 @@
 #elevator {
     position: relative;
-    width: 13em;
-    height: 21em;
-    background-color: gray;
-    padding: 1em;
+    padding: 2em;
 }
-#floors .floor {
-    height: 100px;
-    width: 200px;
+#floors {
+    display: block;
+    position: relative;
+    width: 280px;
 }
-#floor-1 {
-    position: absolute;
-    bottom : 20px;
-}
-#floor-2 {
-    position: absolute;
-    bottom: 140px
+floor {
+    display: block;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    height: 120px;
+    width: auto;
+    position: relative;
 }
 #floor-3 {
-    position: absolute;
-    bottom: 260px
-}
-#floors .buttons {
-    float: left;
-    padding-top: 2em;
-}
-#car {
-    position: absolute;
-    bottom: 11px;
-    left: 7em;
-    width: 6.5em;
-    border: 3px solid black;
-    background-color: saddlebrown;
-}
-#car .buttons {
-    float: right;
-    padding-top: 0.5em;
-}
-.buttons button {
-    display: block;
-}
-#car > * {
-    display: inline-block;
+    border-top: 2px solid black;
 }
 .door-frame {
     position: relative;
+    top: 18px; /* less bottom floor border */
+    height: 100px;
     width: 50px;
-    height: 80px;
-    margin: 0.5em;
+    margin-left: 4em;
     border: 2px solid black;
+    border-bottom: none;
     overflow: hidden;
 }
-.door-frame span {
+door {
+    display: block;
     position: absolute;
-    color: white;
-    font-size: 200%;
-    z-index: 40;
-}
-.door-frame .door {
-    position: absolute;
+    bottom: 0;
+    right: 0;
     width: 50px;
-    height: 80px;
-    background-color: blue;
+    height: 100px;
 }
-.buttons {
-    margin: 0.25em;
+floor .buttons {
+    float: left;
+    padding-left: 1em;
+    padding-top: 2em;
+}
+.buttons button {
+    display: block;
+    margin-top: 0.25em;
+    background-color: white;
+}
+floor span, car span {
+    position: absolute;
+    padding: 0.1em;
+}
+
+/* COLORS */
+#elevator {
+    background-color: lightcyan;
+}
+floor {
+    background-color: burlywood;
+}
+door {
+    background-color: sienna;
+}
+car {
+    background-color: cadetblue;
+}
+/* make these match what the open door exposes */
+floor .door-frame {
+    background-color: cadetblue;
+}
+car .door-frame {
+    background-color: burlywood;
+}
+
+car {
+    position: absolute;
+    bottom: 0;
+    left: 130px;
+    display: block;
+    width: 130px;
+    height: 120px;
+    border: 2px solid black;
+}
+car .door-frame {
+    margin-left: 1em;
+    margin-right: 3em;
+}
+car .buttons {
+    float: right;
+    padding-top: 2em;
+    padding-right: 1em;
 }

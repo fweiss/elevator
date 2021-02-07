@@ -46,4 +46,6 @@ It consists of three floors and a car.
 Each floor has a door and Call, Open, Close buttons.
 The car has an inner door and three floor buttons.
 
+[*Try it out.*](https://fweiss.github.io/sketch/elevator)
+
 Have fun! And let me know if something doesn't seem to work right.

@@ -8,7 +8,7 @@ $(function() {
     let elevator = new Elevator(mechanism)
 
     $(mechanism.carActuator).on('position', function(event, position) {
-        let offset = position + 11
+        let offset = position + 0 //11
         $('#car').css('bottom', offset)
     })
     $(mechanism.carActuator).on('detector', function(event, index) {
@@ -24,7 +24,7 @@ $(function() {
         }
     })
     $(mechanism.carDoorActuator).on('position', function(event, position) {
-        $('#car .door').css('right', position)
+        $('car door').css('left', position)
     })
     $(mechanism.carDoorActuator).on('detector', function(event, index) {
         console.log('car door detector: ' + index)
@@ -92,6 +92,11 @@ $(function() {
     })
     $('#close-3').click((event) => {
         mechanism.closeFloor3Door()
+    })
+    $(elevator).on('request', (event, go) => {
+        // maybe put in mechanism
+        $('#get-1, #get-2, #get-3, #go-1, #go-2, #go-3').css('background-color', 'white')
+        $('#get-' + go + ', #go-' + go).css('background-color', 'lightblue')
     })
 
 

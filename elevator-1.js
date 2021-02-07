@@ -263,6 +263,7 @@ export default class Elevator {
     }
     set go(go) {
         console.log('enter extended state go: ' + go)
+        $(this).trigger('request', [ go ])
         this._go = go
     }
     get go() {
