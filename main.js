@@ -12,13 +12,13 @@ $(function() {
     $(mechanism.carActuator).on('detector', function(event, index) {
         console.log('car detector: ', index)
         if (index == 2) {
-            elevator.event(Event.AT_3)
+            elevator.event(Event.CAR_AT_3)
         }
         if (index == 1) {
-            elevator.event(Event.AT_2)
+            elevator.event(Event.CAR_AT_2)
         }
         if (index == 0) {
-            elevator.event(Event.AT_1)
+            elevator.event(Event.CAR_AT_1)
         }
     })
     $(mechanism.carDoorActuator).on('position', function(event, position) {
@@ -26,7 +26,7 @@ $(function() {
     })
     $(mechanism.carDoorActuator).on('detector', function(event, index) {
         console.log('car door detector: ' + index)
-        elevator.event(index == 1 ? Event.OPENED_CAR : Event.CLOSED_CAR)
+        elevator.event(index == 1 ? Event.CAR_DOOR_OPENED : Event.CAR_DOOR_CLOSED)
     })
 
     $(mechanism.floor1DoorActuator).on('position', function(event, position) {
@@ -34,10 +34,10 @@ $(function() {
     })
     $(mechanism.floor1DoorActuator).on('detector', function(event, index) {
         if (index == 1) {
-            elevator.event(Event.OPENED_1)
+            elevator.event(Event.FLOOR_1_DOOR_OPENED)
         }
         if (index == 0) {
-            elevator.event(Event.CLOSED_1)
+            elevator.event(Event.FLOOR_1_DOOR_CLOSED)
         }
     })
     $(mechanism.floor2DoorActuator).on('position', function(event, position) {
@@ -45,10 +45,10 @@ $(function() {
     })
     $(mechanism.floor2DoorActuator).on('detector', function(event, index) {
         if (index == 1) {
-            elevator.event(Event.OPENED_2)
+            elevator.event(Event.FLOOR_2_DOOR_OPENED)
         }
         if (index == 0) {
-            elevator.event(Event.CLOSED_2)
+            elevator.event(Event.FLOOR_2_DOOR_CLOSED)
         }
     })
     $(mechanism.floor3DoorActuator).on('position', function(event, position) {
@@ -56,10 +56,10 @@ $(function() {
     })
     $(mechanism.floor3DoorActuator).on('detector', function(event, index) {
         if (index == 1) {
-            elevator.event(Event.OPENED_3)
+            elevator.event(Event.FLOOR_3_DOOR_OPENED)
         }
         if (index == 0) {
-            elevator.event(Event.CLOSED_3)
+            elevator.event(Event.FLOOR_3_DOOR_CLOSED)
         }
     })
 
