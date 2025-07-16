@@ -2,7 +2,7 @@
 A model elevator governed by a state machine in ES6 with web simulation
 
 ## Motivation
-I thought I know state machines pretty well from my EE background.
+I thought I knew state machines pretty well from my EE background.
 However, I wasn't doing so great for firmware interviews.
 So... time to cram.
 
@@ -28,7 +28,7 @@ behavior. It consists of four parts:
 - an elevator class which realizes the state machine
 
 The focus of this project was on the state dispatcher and its fluent DSL.
-The intent was to make a fluently representat the state machine
+The intent was to make the representation the state machine easy to read
 in code.
 State machines can of course be constructed out of if-then-else trees.
 But that turns into a bunch of spaghetti code that, for non-trivial
@@ -71,8 +71,8 @@ Have fun! And let me know if something doesn't seem to work right.
 > - Click the numbered buttons in the car.
 > - After the cars stops, click the "O" button. This opens the outer, "floor"
 > door and keeps the car from being called to another floor,
-
-> Try clicking the floor buttons while a particular floor door is open.
+>
+> Try clicking another floor buttons while a particular floor door is open.
 > The interlock prevents the car from moving, however the request is saved
 > (note the button hightlight color.)
 > When the floor door is closed, the car will move to the last requested floor.
